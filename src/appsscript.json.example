@@ -1,0 +1,30 @@
+{
+  "timeZone": "America/New_York",
+  "dependencies": {
+    "enabledAdvancedServices": [{
+      "userSymbol": "BigQuery",
+      "serviceId": "bigquery",
+      "version": "v2"
+    }],
+    "libraries": [{
+      "userSymbol": "OAuth2",
+      "libraryId": "1B7FSrk5Zi6L1rSxxTDgDEUsPzlukDsi4KGuTMorsTQHhGBzBkMun4iDF",
+      "version": "35"
+    }]
+  },
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/bigquery.readonly",
+    "https://www.googleapis.com/auth/script.external_request"
+  ],
+  "dataStudio": {
+    "name": "<<YOUR APPS SCRIPT NAME>>",
+    "logoUrl": "https://storage.googleapis.com/<<YOUR_GOOGLE_STORAGE_BUCKET_NAME>>/data_studio_logo_40x40.png",
+    "company": "<<YOUR COMPANY NAME>>",
+    "addonUrl": "https://github.com/ice1e0/google-datastudio-cc-bq",
+    "supportUrl": "https://github.com/ice1e0/google-datastudio-cc-bq",
+    "description": "<<YOUR FIRST COMMUNITY CONNECTOR>>",
+    "useQueryConfig": true
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}

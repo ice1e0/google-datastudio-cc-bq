@@ -1,0 +1,49 @@
+function config()
+{
+    var variables = {
+
+        /*
+        * debugMode (bool)
+        * when activated the app writes extended debug information
+        * and shows the exception (isAdminUser() returns true)
+        */
+        debugMode: false,
+
+        /*
+        * bigQueryProjectId (string)
+        * 
+        * the Google Cloud project id against which the app runs Big Query queries
+        */
+        bigQueryProjectId: '<<YOUR_GOOGLE_CLOUD_PROJECT_ID>>',
+
+        /*
+        * useOAuth (bool)
+        *
+        * if OAuth will be used. If yes, you need to copy auth.oauth.js.example to auth.oauth.js and implement the required parameters
+        */
+        useOAuth: true,
+
+        /*
+        * oauth_client_id (string)
+        *
+        * the OAUTH client id to be used
+        */
+        oauth_client_id: '<<YOUR_OAUTH_CLIENT_ID>>',
+
+        /*
+        * oauth_client_secret (string)
+        *
+        * the OAUTH client secret to be used
+        */
+        oauth_client_secret: '<<YOUR_OAUTH_CLIENT_SECRET>>',
+
+        /*
+         * schemaUrl (string)
+         *
+         * a url which provides the schema as JSON file
+         */
+        schemaUrl: 'https://storage.googleapis.com/storage/v1/b/<<YOUR_GOOGLE_STORAGE_BUCKET_NAME>>/o/schema.json?alt=media'
+
+    };
+    return variables;
+}

@@ -1,0 +1,63 @@
+{
+    "defaultDimension": "wiki",
+    "defaultMetric": "pageviews",
+    "dimensions": [
+        {
+            "id": "date",
+            "name": "Date",
+            "description": "The date related to its measure/metric",
+            "group": "Date",
+            "hidePrimaryKeyAttribute": true,
+            "attributes": [
+                {
+                    "id": "YMD",
+                    "name": "Date",
+                    "description": "Date (year-month-date)",
+                    "sqlColumnExpression": "FORMAT_DATE(\"%E4Y%m%d\", $COLUMN)",
+                    "type": "YEAR_MONTH_DAY"
+                },
+                {
+                    "id": "DoW",
+                    "name": "Day of the week",
+                    "description": "Day of the week",
+                    "sqlColumnExpression": "CAST(EXTRACT(DAYOFWEEK FROM $COLUMN)-1 AS STRING)",
+                    "type": "DAY_OF_WEEK"
+                }
+            ]
+        },
+        {
+            "id": "wiki",
+            "name": "Wiki",
+            "description": "The wiki instance of wikipedia"
+        }
+    ],
+    "datasets": [
+        {
+            "name": "wikipedia_pageviews",
+            "sqlTable": "data_studio.wikipedia_pageviews",
+            "dateDimension": "date",
+            "measures": [
+                {
+                    "id": "pageviews",
+                    "name": "Pageviews",
+                    "description": "No. of pageviews",
+                    "aggregation": "Sum",
+                    "sqlColumn": "views",
+                    "type": "NUMBER"
+                }
+            ],
+            "dimensions": [
+                {
+                    "type": "Regular",
+                    "dimension": "date",
+                    "sqlColumnExpression": "EXTRACT(DATE FROM $THIS.datehour AT TIME ZONE 'UTC')"
+                },
+                {
+                    "type": "Regular",
+                    "dimension": "wiki",
+                    "sqlColumn": "wiki"
+                }
+            ]
+        }
+    ]
+}

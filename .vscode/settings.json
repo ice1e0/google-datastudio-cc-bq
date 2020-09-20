@@ -1,0 +1,10 @@
+{
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "/gcs_sample_data/schema.json"
+            ],
+            "url": "/schemafile.schema.json"
+        }
+    ]
+}

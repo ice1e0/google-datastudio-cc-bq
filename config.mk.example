@@ -1,0 +1,34 @@
+# Your own google cloud project id
+#
+GOOGLE_CLOUD_PROJECT_ID=YOUR_PROJECT_ID
+
+# The name for your google apps script
+GOOGLE_APPS_SCRIPT_NAME=My Google Data Studio Connector
+
+# The google cloud storage bucket name you want to use. The bucket name must
+# not be used anywhere, it will be created when calling 'make'.
+#
+GCS_BUCKET_NAME=YOUR_GCS_BUCKET_NAME
+
+# The Google OAuth 2.0 Client ID
+# You can find it under https://console.cloud.google.com/apis/credentials
+# after you configured the OAuth consent screen here: https://console.cloud.google.com/apis/credentials/consent
+#
+# Make sure that you configure 
+#   https://script.google.com/macros/d/<<YOUR_APPS_SCRIPT_ID>>/usercallback
+# as authorized redirect URL in your OAuth 2.0 Client ID config
+#
+# The OAuth authentication is used from the Google Apps Script to authenticate
+# against Big Query.
+#
+OAUTH_CLIENT_ID=<TO_BE_FILLED>
+OAUTH_CLIENT_SECRET=<TO_BE_FILLED>
+
+# the name of the big query dataset name to be used
+#
+# WARNING:
+# When you adjust this, you have to change the dataset name in the schema file
+#   /gcs_sample_data/schema.json
+# as well!
+#
+BQ_DATASET_NAME=data_studio

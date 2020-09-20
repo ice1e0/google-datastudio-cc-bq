@@ -1,0 +1,425 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Data Studio Schema file",
+
+    "definitions": {
+        "dimension_type": {
+            "type": "string",
+            "description": "The semantic type of the dimension\n\nSee also: https://developers.google.com/datastudio/connector/reference#semantictype",
+            "enum": [
+                "YEAR",
+                "YEAR_QUARTER",
+                "YEAR_MONTH",
+                "YEAR_WEEK",
+                "YEAR_MONTH_DAY",
+                "YEAR_MONTH_DAY_HOUR",
+                "YEAR_MONTH_DAY_SECOND",
+                "QUARTER",
+                "MONTH",
+                "WEEK",
+                "MONTH_DAY",
+                "DAY_OF_WEEK",
+                "DAY",
+                "HOUR",
+                "MINUTE",
+                "DURATION",
+                "COUNTRY",
+                "COUNTRY_CODE",
+                "CONTINENT",
+                "CONTINENT_CODE",
+                "SUB_CONTINENT",
+                "SUB_CONTINENT_CODE",
+                "REGION",
+                "REGION_CODE",
+                "CITY",
+                "CITY_CODE",
+                "METRO_CODE",
+                "LATITUDE_LONGITUDE",
+                "NUMBER",
+                "PERCENT",
+                "TEXT",
+                "BOOLEAN",
+                "URL",
+
+                "CURRENCY_AED",
+                "CURRENCY_ALL",
+                "CURRENCY_ARS",
+                "CURRENCY_AUD",
+                "CURRENCY_BDT",
+                "CURRENCY_BGN",
+                "CURRENCY_BOB",
+                "CURRENCY_BRL",
+                "CURRENCY_CAD",
+                "CURRENCY_CDF",
+                "CURRENCY_CHF",
+                "CURRENCY_CLP",
+                "CURRENCY_CNY",
+                "CURRENCY_COP",
+                "CURRENCY_CRC",
+                "CURRENCY_CZK",
+                "CURRENCY_DKK",
+                "CURRENCY_DOP",
+                "CURRENCY_EGP",
+                "CURRENCY_ETB",
+                "CURRENCY_EUR",
+                "CURRENCY_GBP",
+                "CURRENCY_HKD",
+                "CURRENCY_HRK",
+                "CURRENCY_HUF",
+                "CURRENCY_IDR",
+                "CURRENCY_ILS",
+                "CURRENCY_INR",
+                "CURRENCY_IRR",
+                "CURRENCY_ISK",
+                "CURRENCY_JMD",
+                "CURRENCY_JPY",
+                "CURRENCY_KRW",
+                "CURRENCY_LKR",
+                "CURRENCY_LTL",
+                "CURRENCY_MNT",
+                "CURRENCY_MVR",
+                "CURRENCY_MXN",
+                "CURRENCY_MYR",
+                "CURRENCY_NOK",
+                "CURRENCY_NZD",
+                "CURRENCY_PAB",
+                "CURRENCY_PEN",
+                "CURRENCY_PHP",
+                "CURRENCY_PKR",
+                "CURRENCY_PLN",
+                "CURRENCY_RON",
+                "CURRENCY_RSD",
+                "CURRENCY_RUB",
+                "CURRENCY_SAR",
+                "CURRENCY_SEK",
+                "CURRENCY_SGD",
+                "CURRENCY_THB",
+                "CURRENCY_TRY",
+                "CURRENCY_TWD",
+                "CURRENCY_TZS",
+                "CURRENCY_UAH",
+                "CURRENCY_USD",
+                "CURRENCY_UYU",
+                "CURRENCY_VEF",
+                "CURRENCY_VND",
+                "CURRENCY_YER",
+                "CURRENCY_ZAR"
+            ],
+            "default": "TEXT"
+        },
+        "metric_type": {
+            "type": "string",
+            "enum": [
+                "NUMBER",
+                "PERCENT"
+            ],
+            "default": "NUMBER"
+        },
+        "measure_aggregation_type": {
+            "type": "string",
+            "enum": [
+                "Avg",
+                "Count",
+                "CountDistinct",
+                "FistValue",
+                "Max",
+                "Min",
+                "Sum"
+            ],
+            "default": "Sum"
+        },
+        "metric_aggregation_type": {
+            "type": "string",
+            "enum": [
+                "Avg",
+                "Max",
+                "Min",
+                "Sum",
+
+                "None",
+                "Auto"
+            ],
+            "default": "None"
+        }
+    },
+
+    "type": "object",
+    "properties": {
+        "defaultMetric": {
+            "type": "string",
+            "description": "The metric or measure id which shall be used by default in a new query"
+        },
+        "defaultDimension": {
+            "type": "string",
+            "description": "The dimension id which shall be used by default in a new query"
+        },
+        "dimensions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "name": {
+                        "type": "string",
+                        "description": "The display name of a dimension"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The display description of a dimension"
+                    },
+                    "group": {
+                        "type": "string",
+                        "description": "A dimension group name"
+                    },
+                    "type": { "$ref": "#/definitions/dimension_type" },
+                    "hidePrimaryKeyAttribute": {
+                        "type": "boolean",
+                        "description": "If the primary key attribute is visible"
+                    },
+                    "attributes": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {"type": "string"},
+                                "name": {"type": "string"},
+                                "description": {"type": "string"},
+                                "group": {"type": "string"},
+                                "type": { "$ref": "#/definitions/dimension_type" },
+                                "sqlColumnExpression": {"type": "string"},
+                                "visible": {
+                                    "type": "boolean",
+                                    "description": "If the dimension attribute is visible in the UI.",
+                                    "default": true
+                                }
+                            },
+                            "required": ["id", "name", "sqlColumnExpression"],
+                            "additionalProperties": false
+                        }
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "If the dimension is visible in the UI.",
+                        "default": true
+                    }
+                },
+                "required": ["id", "name"],
+                "additionalProperties": false
+            }
+        },
+        "datasets": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"type": "object",
+				"properties": {
+                    "name": {"type": "string"},
+                    "sqlTable": {
+                        "type": "string",
+                        "description": "The SQL table for this dataset"
+                    },
+                    "dateDimension": {
+                        "type": "string",
+                        "description": "The dimension name of the date dimension. A dimension with data type 'date' must be added to this dataset"
+                    },
+                    "measures": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type":"string",
+                                    "description": "The technical id for this measure"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "The display name for this measure"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "The display description for this measure"
+                                },
+                                "type": { "$ref": "#/definitions/metric_type" },
+                                "aggregation": { "$ref": "#/definitions/measure_aggregation_type" },
+                                "sqlColumn": {
+                                    "type": "string",
+                                    "description": "The SQL column name. If not given, the property 'id' (= the measure id) will be taken"
+                                },
+                                "sqlColumnExpression": {
+                                    "type": "string",
+                                    "description": "A SQL column expression which will be used in the SELECT clause. Default is '$THIS.name_of_measure'.\n\nAllowed parameters:\n\t$THIS = the dataset sql table\n\t$COLUMN = a reference to the measure column"
+                                },
+                                "visible": {
+                                    "type": "boolean",
+                                    "description": "If the measure is visible in the UI.",
+                                    "default": true
+                                },
+                                "where": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "dimension": {
+                                                "type": "string",
+                                                "description": "The dimension id which shall be used in the where condition. You can access an attribute with '.', e.g. dimension_id.attribute_id"
+                                            },
+                                            "sqlConditionExpression": {
+                                                "type": "string",
+                                                "description": "The SQL where condition.\n\nAllowed parameters:\n\t$THIS = the dataset sql table\n\t$DIMENSION = the column of the dimension to be filtered on"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "required": ["id", "name"],
+                            "additionalProperties": false
+                        }
+                    },
+                    "references": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["DataSetJoin", "Join"]
+                                },
+                                "dataSetName": {"type": "string"},
+                                "alias": {"type": "string"},
+                                "sqlTable": {"type": "string"},
+                                "joinType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Inner",
+                                        "Left"
+                                    ]
+                                },
+                                "joinClause": {"type": "string"},
+                                "reference": {"type": "string"}
+                            },
+                            "required": ["type","joinType","joinClause"],
+                            "oneOf": [
+                                {
+                                    "properties": {
+                                        "type": {"enum": ["DataSetJoin"]}
+                                    },
+                                    "required": ["dataSetName"]
+                                },
+                                {
+                                    "properties": {
+                                        "type": {"enum": ["Join"]}
+                                    },
+                                    "required": ["alias","sqlTable"]
+                                }
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "dimensions": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Regular","Date","Join","DataSetJoin"]
+                                },
+                                "dimension": {
+                                    "type": "string",
+                                    "description": "The dimension id from the dimension defined under $.dimensions[]"
+                                },
+                                "sqlColumn": {
+                                    "type": "string",
+                                    "description": "The SQL column name. If not given, the property 'dimension' (= the dimension id) will be taken"
+                                },
+                                "sqlColumnExpression": {
+                                    "type": "string",
+                                    "description": "A SQL column expression which will be used in the WHERE clause for filtering. Default is '$JOIN.name_of_dimension' if type is 'Join', otherwise '$THIS.name_of_dimension'.\n\nAllowed parameters:\n\t$THIS = the dataset sql table\n\t$JOIN = the joined dimension sql table\n\t$COLUMN = a reference to the key column"
+                                },
+                                "reference": {"type": "string"},
+                                "sourceDataSetName": {"type": "string"}
+                            },
+                            "required": ["type","dimension"],
+                            "oneOf":[
+                                {
+                                    "properties": {
+                                        "type": {"enum": ["DataSetJoin"]}
+                                    },
+                                    "required": ["sourceDataSetName"]
+                                },
+                                {
+                                    "properties": {
+                                        "type": {"enum": ["Join"]}
+                                    },
+                                    "required": ["reference"]
+                                },
+                                {
+                                    "properties": {
+                                        "type": {"enum": ["Regular","Date"]}
+                                    }
+                                }
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "where": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "sqlConditionExpression": {
+                                    "type": "string",
+                                    "description": "The SQL where condition.\n\nAllowed parameters:\n\t$THIS = the dataset sql table"
+                                }
+                            }
+                        }
+                    }
+                },
+                "additionalProperties": false
+            },
+            "required": ["name", "sqlTable", "measures", "dimensions"]
+        },
+        "metrics": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The technical id for this metric"
+                    },
+                    "name": {
+                        "type":"string",
+                        "description": "The display name for the metric"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The display description for the metric"
+                    },
+                    "type": { "$ref": "#/definitions/metric_type" },
+                    "aggregation": { "$ref": "#/definitions/metric_aggregation_type" },
+                    "formula": {
+                        "type": "string",
+                        "description": "The formula for the metric"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "If the metric is visible in the UI.",
+                        "default": true
+                    }
+                },
+                "required": ["id", "name", "formula"]
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "dimensions",
+        "datasets"
+    ]
+}
