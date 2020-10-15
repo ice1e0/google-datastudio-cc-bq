@@ -1,4 +1,4 @@
-Google Data Studio Comunity Conncetor for BigQuery
+Google Data Studio Community Conncetor for BigQuery
 ==================================================
 
 A Google Data Studio [Community Connector](https://developers.google.com/datastudio/connector)
